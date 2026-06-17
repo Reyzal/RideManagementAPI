@@ -27,3 +27,6 @@ class ApiTokenAuthentication(authentication.BaseAuthentication):
             raise exceptions.AuthenticationFailed("Invalid token.")
 
         return token.user, token
+
+    def authenticate_header(self, request):
+        return self.keyword
