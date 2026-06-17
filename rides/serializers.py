@@ -31,6 +31,7 @@ class RideSerializer(serializers.ModelSerializer):
     id_rider = UserSerializer(read_only=True)
     id_driver = UserSerializer(read_only=True)
     todays_ride_events = RideEventSerializer(many=True, read_only=True)
+    distance_km = serializers.FloatField(read_only=True)
 
     id_rider_id = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(),
@@ -58,4 +59,5 @@ class RideSerializer(serializers.ModelSerializer):
             "dropoff_longitude",
             "pickup_time",
             "todays_ride_events",
+            "distance_km",
         ]
