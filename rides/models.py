@@ -1,3 +1,5 @@
+import secrets
+
 from django.db import models
 
 
@@ -74,3 +76,25 @@ class RideEvent(models.Model):
 
     def __str__(self) -> str:
         return f"RideEvent {self.id_ride_event} - Ride {self.id_ride_id}"
+    
+    
+class ApiToken(models.Model):
+    key = models.CharField(max_length=64, unique=True, db_index=True)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="api_tokens",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    @staticmethod
+    def generate_key() -> str:
+        return secrets.token_hex(32)
+
+    def save(self, *args, **kwargs):
+        if not self.key:
+            self.key = self.generate_key()
+        super().save(*args, **kwargs)
+
+    def __str__(self) -> str:
+        return f"Token for {self.user.email}"
