@@ -1,9 +1,14 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.viewsets import ModelViewSet
 
+
 from .authentication import ApiTokenAuthentication
+from .filters import RideFilter
 from .models import Ride, RideEvent, User
 from .permissions import IsAdminRole
 from .serializers import RideEventSerializer, RideSerializer, UserSerializer
+
+
 
 
 class UserViewSet(ModelViewSet):
@@ -19,6 +24,8 @@ class RideViewSet(ModelViewSet):
     permission_classes = [IsAdminRole]
 
     serializer_class = RideSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = RideFilter
 
     def get_queryset(self):
         return (
@@ -34,3 +41,5 @@ class RideEventViewSet(ModelViewSet):
 
     queryset = RideEvent.objects.select_related("id_ride").order_by("id_ride_event")
     serializer_class = RideEventSerializer
+    
+
