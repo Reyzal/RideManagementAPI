@@ -174,12 +174,15 @@ RideManagementAPI/
 
 ```bash
 uv sync --locked
+uv run ruff check .
 uv run python manage.py check
 uv run python manage.py makemigrations --check --dry-run
 uv run pytest
 ```
 
-GitHub Actions runs these checks for pull requests and pushes to `master`.
+GitHub Actions runs Ruff, Django system checks, the migration drift check, and
+pytest for pull requests and pushes to `master`. These checks provide a fast
+quality baseline; they are not a substitute for production validation.
 
 ## Evolution path
 

@@ -1,20 +1,18 @@
-from django.db.models import F, FloatField, Value, Prefetch
-from django.db.models.functions import ACos, Cos, Radians, Sin
 from datetime import timedelta
-from django_filters.rest_framework import DjangoFilterBackend
-from django.utils import timezone
 
-from rest_framework.viewsets import ModelViewSet
+from django.db.models import F, FloatField, Prefetch, Value
+from django.db.models.functions import ACos, Cos, Radians, Sin
+from django.utils import timezone
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.exceptions import ValidationError
 from rest_framework.filters import OrderingFilter
+from rest_framework.viewsets import ModelViewSet
 
 from .authentication import ApiTokenAuthentication
 from .filters import RideFilter
 from .models import Ride, RideEvent, User
 from .permissions import IsAdminRole
 from .serializers import RideEventSerializer, RideSerializer, UserSerializer
-
-
 
 
 class UserViewSet(ModelViewSet):
