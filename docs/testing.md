@@ -15,6 +15,7 @@ The suite uses pytest, pytest-django, and DRF's `APIClient` against the HTTP and
 | Query behavior | Ride list is held to four queries |
 
 ```bash
+uv run ruff check .
 uv run pytest
 uv run python manage.py check
 uv run python manage.py makemigrations --check --dry-run
